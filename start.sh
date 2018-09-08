@@ -14,7 +14,7 @@ else
 fi
 
 # 2. Create docker network
-docker network create $NETWORK
+docker network create $NETWORK --driver overlay --attachable
 
 # 3. Verify if second network is configured
 if [ ! -z ${SERVICE_NETWORK+X} ]; then
