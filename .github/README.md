@@ -3,11 +3,17 @@
 
 Para que el proyecto funcione en un cluster Docker SWARM, es necesario declarar la red o redes como --attachable en el cluster.
 
-El script de base que usaremos será el predeterminado para *1 sola red* pero con los cambios necesarios incluidos en **start.sh**
+Cambios:
 
+- El script de base que usaremos será el predeterminado para *1 sola red* pero con los cambios necesarios incluidos en **start.sh**:
 
+```
+ - line 12: docker network create $NETWORK 
+ + line 12: docker network create $NETWORK --driver overlay --scope swarm --attachable
 
+```
 
+- Añadido script **stop.sh**
 
 
 # Web Proxy using Docker, NGINX and Let's Encrypt
