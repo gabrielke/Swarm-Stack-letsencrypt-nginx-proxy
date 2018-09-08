@@ -1,9 +1,13 @@
 
 # Version Docker SWARM
 
-Para que el proyecto funcione en un cluster Docker SWARM, es necesario declarar la red o redes como --attachable en el cluster.
+Para que el proyecto funcione en un clúster Docker Swarm, es necesario declarar la red (o redes) que escuchará a los nuevos despliegues de los stack, es necesario declarar la red como --attachable.
 
-Cambios:
+Un despliegue normal en un cluster Docker Swarm no requiere usar una red de servicio, por lo que sólo deberemos configurar la red base `NETWORK=webproxy`. Este parámetro lo configuramos en el fichero `.env`. Podemos copiar el ejemplo inlcuido `.env.sample`como `.env`.
+
+
+
+Cambios realizados:
 
 - El script de base que usaremos será el predeterminado para *1 sola red* pero con los cambios necesarios incluidos en **start.sh**:
 
@@ -13,7 +17,19 @@ Cambios:
 
 ```
 
-- Añadido script **stop.sh**
+- Añadido script **stop.sh** para detener el despliegue
+
+
+- En cuanto al despliegue en el cluster, `docker-compose` no utiliza las capacidades de Docker Swarm por lo que va a desplegar los container en el servidor donde se ejecute el comando. Por ello es necesario que este despliegue se realice en el ***nodo manager***. Si quisieramos usar el ficher .yml para un despliegue tipo stack (`docker stack deploy`) será necesario añadir las siguientes condiciones para que el despliegue sea en el nodo manager:
+```
+deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      replicas: 1
+```
+He preparado el script ***docker-stack.yml*** con dichas condiciones.
+
 
 
 # Web Proxy using Docker, NGINX and Let's Encrypt
