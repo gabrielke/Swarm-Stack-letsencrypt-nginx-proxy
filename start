@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# 7. Start proxy
+cd  /data/software/proxy-letsencrypt/
+docker-compose up -d
+
