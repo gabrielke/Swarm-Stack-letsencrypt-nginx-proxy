@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #
-# This file should be used to prepare and run your WebProxy after set up your .env file
-# Source: https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
+# This file should be used to prepare and run your WebProxy after set up your .env file in Docker SWARM STACK 
+# Is based in source: https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
 #
 
 # 1. Check if .env file exists
