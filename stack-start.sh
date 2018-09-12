@@ -16,16 +16,12 @@ fi
 # 2. Create docker network
 docker network create $NETWORK --driver overlay --attachable
 
-# 3. Verify if second network is configured
-if [ ! -z ${SERVICE_NETWORK+X} ]; then
-    docker network create $SERVICE_NETWORK
-fi
 
-# 4. Download the latest version of nginx.tmpl
+# 3. Download the latest version of nginx.tmpl
 curl https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl > nginx.tmpl
 
 
-# 6. Add any special configuration if it's set in .env file
+# 4. Add any special configuration if it's set in .env file
 
 # Check if user set to use Special Conf Files
 if [ ! -z ${USE_NGINX_CONF_FILES+X} ] && [ "$USE_NGINX_CONF_FILES" = true ]; then
@@ -54,8 +50,8 @@ if [ ! -z ${USE_NGINX_CONF_FILES+X} ] && [ "$USE_NGINX_CONF_FILES" = true ]; the
     fi
 fi 
 
-# 7. Start proxy
+# 5. Start proxy
 
-    docker stack deploy -c docker-stack.yml proxy-stack
+    docker stack deploy -c docker-stack.yml $STACK_NAME
 
 exit 0
